@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>WebStream</title>
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        height: 100vh;
+        width: 100vw;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        overflow: hidden;
+      }
+    </style>
+  </head>
+  <body>
+    <div style="width: 300px; height: 150px; border: 1px">
+      <div style="display: flex">
+        <input type="text" id="inputID" style="flex: 1" />
+        <button type="button" id="getID">获取信息</button>
+      </div>
+      <div style="display: flex">
+        <textarea id="showInfo" style="flex: 1; height: 60px"></textarea>
+      </div>
+    </div>
+    <script>
+      const inputID = document.getElementById("inputID");
+      const getID = document.getElementById("getID");
+      const showInfo = document.getElementById("showInfo");
+
+      const url = new URL(location.href);
+      const address = `${url.protocol === "https:" ? "wss:" : "ws:"}//${url.host}`;
+
+      getID.onclick = () => {
+        showInfo.value = "";
+        showInfo.value += `推送地址: ${address}/put/${inputID.value}\n`;
+        showInfo.value += `读取地址: ${address}/get/${inputID.value}\n`;
+      };
+    </script>
+  </body>
+</html>
